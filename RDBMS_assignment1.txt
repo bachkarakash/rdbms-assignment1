@@ -1,0 +1,76 @@
+1) Before(Update) Trigger
+
+delimiter $$
+create trigger before_update_employee
+before update on employee
+for each row
+begin
+insert into employee_audit(emp_id,emp_name,location,action,changeDate) values(old.emp_id,old.emp_name,old.location,'Update',now());
+
+end$$
+delimiter ;
+
+
+2) After(Update) Trigger
+
+delimiter $$
+create trigger after_update_employee
+after update on employee
+for each row
+begin
+insert into employee_after_update(emp_id,emp_name,location,action,changeDate) values(old.emp_id,old.emp_name,old.location,'Update',now());
+
+end$$
+delimiter ;
+
+
+3) Before(Insert) Trigger
+
+delimiter $$
+create trigger before_insert_employee
+before insert on employee
+for each row
+begin
+insert into employee_before_insert values(new.emp_id,new.emp_name,new.location,'Insert',now());
+
+end$$
+delimiter ;
+
+
+4) After(Insert) Trigger
+
+delimiter $$
+create trigger after_insert_employee
+after insert on employee
+for each row
+begin
+insert into employee_after_insert values(new.emp_id,new.emp_name,new.location,'Insert',now());
+
+end$$
+delimiter ;
+
+
+5) Before(Delete) Trigger
+
+delimiter $$
+create trigger before_delete_employee
+before delete on employee
+for each row
+begin
+insert into employee_before_delete(emp_id,emp_name,location,action,changeDate) values(old.emp_id,old.emp_name,old.location,'Delete',now());
+
+end$$
+delimiter ;
+
+
+6) After(Delete) Trigger
+
+delimiter $$
+create trigger after_delete_employee
+after delete on employee
+for each row
+begin
+insert into after_delete_employee(emp_id,emp_name,location,action,changeDate) values(old.emp_id,old.emp_name,old.location,'Delete',now());
+
+end$$
+delimiter ;
